@@ -4,10 +4,11 @@ const BASIC_URL = 'https://restcountries.com/v3.1/';
 const fields = 'fields=name,capital,population,flags,languages';
 
 export default function fetchCountries(name) {
-  return fetch(`${BASIC_URL}name/${name}?${fields}`)
-    .then(r => r.json())
-    .then(data => console.log(data))
-    .catch(() => {
-      throw new Error(response.status);
-    });
+  return fetch(`${BASIC_URL}name/${name}?${fields}`).then(r => {
+    // Handles an error with the status code 404 - not found.
+    if (!r.ok) {
+      throw new Error(r.status);
+    }
+    return r.json();
+  });
 }
