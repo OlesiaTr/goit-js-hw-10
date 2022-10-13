@@ -15,6 +15,32 @@ body {
 #search-box {
   font: inherit;
   padding: 8px;
-  max-width: 320px;
-  margin-bottom: 16px;
+  width: 30%;
+  margin: 40 auto;
+  display: flex;
+  border: 1px solid rgba(33, 33, 33, 0.2);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1.17;
+  letter-spacing: 0.01em;
+  box-shadow: 4px 9px 10px #0000004d;
+}
+
+#search-box:hover,
+#search-box:focus {
+  outline: none;
+  border-color: #ea047e;
+}
+
+body {
+  background-color: #d8d9cf;
+  opacity: 0.6;
+  background-image: radial-gradient(
+      #ea047e 1.4000000000000001px,
+      transparent 1.4000000000000001px
+    ),
+    radial-gradient(#ea047e 1.4000000000000001px, #d8d9cf 1.4000000000000001px);
+  background-size: 56px 56px;
+  background-position: 0 0, 28px 28px;
 }
