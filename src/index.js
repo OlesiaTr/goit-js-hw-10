@@ -1,9 +1,9 @@
 import './css/styles.css';
-import fetchCountries from './fetchCountries';
+import fetchCountries from './js partials/fetchCountries';
 import debounce from 'lodash.debounce';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import articlesTpl from './articles.hbs';
-import cartTpl from './cart.hbs';
+import articlesTpl from './templates/articles.hbs';
+import cartTpl from './templates/cart.hbs';
 
 const DEBOUNCE_DELAY = 300;
 
@@ -28,11 +28,23 @@ function onInput(e) {
   clearedMarkup();
 }
 
+// Interface.
 function preprocess(r) {
   r.length === 1 && cartInfo(r);
-  console.log(r);
+  r.length >= 2 && r.length <= 10 && articlesInfo(r);
+  r.length > 10 &&
+    Notify.info('Too many matches found. Please enter a more specific name.');
 }
 
+// Displays list of found countries, each list item consists of a flag and country name.
+function articlesInfo(r) {
+  clearedMarkup();
+  return r.map(({ flags: { svg }, name: { official } }) =>
+    refs.list.insertAdjacentHTML('beforeend', articlesTpl({ svg, official }))
+  );
+}
+
+//  Displays the card markup with information about the country: flag, name, capital, population and languages.
 function cartInfo(r) {
   clearedMarkup();
   return r.map(
@@ -43,16 +55,16 @@ function cartInfo(r) {
       languages,
       capital,
     }) => {
+      const languageOptions = [];
       for (const [key, value] of Object.entries(languages)) {
-        console.log(`${key}: ${value}`);
+        languageOptions.push(' ' + value);
       }
-      // return refs.info.insertAdjacentHTML(
-      //   'beforeend',
-      //   cartTpl({ official, svg, population, languages, capital })
-      // );
+      return refs.info.insertAdjacentHTML(
+        'beforeend',
+        cartTpl({ official, svg, population, languageOptions, capital })
+      );
     }
   );
-  // refs.info.insertAdjacentHTML('beforeend', cartMarkup);
 }
 
 function clearedMarkup() {
