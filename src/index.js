@@ -39,32 +39,22 @@ function preprocess(r) {
 // Displays list of found countries, each list item consists of a flag and country name.
 function articlesInfo(r) {
   clearedMarkup();
-  return r.map(({ flags: { svg }, name: { official } }) =>
-    refs.list.insertAdjacentHTML('beforeend', articlesTpl({ svg, official }))
+  const articlesMarkup = r.map(({ flags: { svg }, name: { official } }) =>
+    articlesTpl({ svg, official })
   );
+
+  return refs.list.insertAdjacentHTML('beforeend', articlesMarkup);
 }
 
 //  Displays the card markup with information about the country: flag, name, capital, population and languages.
 function cartInfo(r) {
   clearedMarkup();
-  return r.map(
-    ({
-      name: { official },
-      flags: { svg },
-      population,
-      languages,
-      capital,
-    }) => {
-      const languageOptions = [];
-      for (const [key, value] of Object.entries(languages)) {
-        languageOptions.push(' ' + value);
-      }
-      return refs.info.insertAdjacentHTML(
-        'beforeend',
-        cartTpl({ official, svg, population, languageOptions, capital })
-      );
-    }
+  const cartMarkup = r.map(
+    ({ name: { official }, flags: { svg }, population, languages, capital }) =>
+      cartTpl({ official, svg, population, languages, capital })
   );
+
+  return refs.info.insertAdjacentHTML('beforeend', cartMarkup);
 }
 
 function clearedMarkup() {

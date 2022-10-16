@@ -14,8 +14,9 @@
     >{{population}}</p>
   </li>
   <li class='country-info__item'>
-    <h2 class='country-info__title'>Languages:</h2><p
-      class='country-info__text'
-    >{{languageOptions}}</p>
+    <h2 class='country-info__title'>Languages:</h2>
+    {{#each languages}}
+      <p class='country-info__text'>{{this}}{{#unless @last}},{{/unless}}</p>
+    {{/each}}
   </li>
 </ul>

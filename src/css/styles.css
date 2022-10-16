@@ -110,6 +110,10 @@ body {
   color: #251b37;
 }
 
+.country-info__text + .country-info__text {
+  margin-left: 5px;
+}
+
 .country-list {
   display: flex;
   justify-content: space-evenly;
